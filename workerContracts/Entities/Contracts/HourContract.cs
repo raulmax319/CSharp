@@ -2,12 +2,12 @@ using System;
 
 namespace workerContracts.Entities.Contracts {
     class HourContract {
-        public DateTime Date { get; set; }
-        public double ValuePerHour { get; set; }
-        public int Hours { get; set; }
+        public static DateTime Date { get; set; }
+        public static double ValuePerHour { get; set; }
+        public static int Hours { get; set; }
 
         public static double TotalValue() {
-            return 1;
+            return Hours * ValuePerHour;
         }
     }
 }

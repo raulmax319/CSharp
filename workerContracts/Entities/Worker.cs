@@ -1,13 +1,13 @@
 using workerContracts.Entities.Enums;
 using workerContracts.Entities.Contracts;
-using workerContracts.Entities.Departments;
 
 namespace workerContracts.Entities {
     class Worker {
         public string Name { get; set; }
         public WorkerLevel Level { get; set; }
         public double BaseSalary { get; set; }
-        public Department Dep { get; set; }
+        public string Dep { get; set; }
+        public static HourContract Contract { get; set; }
 
         public Worker(){
         }

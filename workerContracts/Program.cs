@@ -1,6 +1,7 @@
 ﻿using System;
 using workerContracts.Entities;
 using workerContracts.Entities.Enums;
+using workerContracts.Entities.Departments;
 
 namespace workerContracts
 {
@@ -8,8 +9,14 @@ namespace workerContracts
     {
         static void Main(string[] args)
         {
+            
+
             System.Console.Write("Enter department's name: ");
             string dep = System.Console.ReadLine();
+
+            Department department = new Department {
+                Name = dep
+            };
             
             System.Console.WriteLine("Enter worker data:");
             System.Console.Write("Name: ");
