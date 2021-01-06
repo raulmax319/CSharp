@@ -1,30 +1,37 @@
+using System;
+using System.Collections.Generic;
 using workerContracts.Entities.Enums;
 using workerContracts.Entities.Contracts;
+using workerContracts.Entities.Departments;
 
 namespace workerContracts.Entities {
     class Worker {
         public string Name { get; set; }
         public WorkerLevel Level { get; set; }
         public double BaseSalary { get; set; }
-        public string Dep { get; set; }
-        public static HourContract Contract { get; set; }
+        public Department Department { get; set; }
+        public List<HourContract> Contracts { get; set; } = new List<HourContract>();
 
-        public Worker(){
+        public Worker() {
         }
 
-        public static void AddContract() {
+        public void AddContract(HourContract contract) {
+            Contracts.Add(contract);
         }
 
-        public static void RemoveContract() {
+        public void RemoveContract(HourContract contract) {
+            Contracts.Remove(contract);
         }
 
-        public static double Income(int year, int month) {
-            return 0;
-        }
+        public double Income(int year, int month) {
+            double sum = BaseSalary;
 
-        public override string ToString()
-        {
-            return $"{Name}, {Dep} {Level}, {BaseSalary}";
+            foreach (HourContract contract in Contracts) {
+                if (contract.Date.Year == year && contract.Date.Month == month) {
+                    sum += contract.TotalValue();
+                }
+            }
+            return sum;
         }
     }
 }

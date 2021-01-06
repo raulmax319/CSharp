@@ -2,9 +2,11 @@ namespace workerContracts.Entities.Departments {
     class Department {
         public string Name { get; set; }
 
-        public override string ToString()
-        {
-            return Name;
+        public Department() {
+        }
+
+        public Department(string name) {
+            Name = name;
         }
     }
 }
