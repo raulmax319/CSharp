@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Taxes.Entities;
 
 namespace Taxes
@@ -9,13 +10,13 @@ namespace Taxes
         static void Main(string[] args)
         {
             List<Payer> taxPayers = new List<Payer>();
-            
+
             System.Console.Write("Enter the number of tax payers: ");
             int n = int.Parse(System.Console.ReadLine());
 
-            for(int i = 0; i <= n; i++) {
+            for(int i = 1; i <= n; i++) {
                 System.Console.Write("Individual or Company (i/c): ");
-                char individualOrCompany = int.Parse(System.Console.ReadLine());
+                char individualOrCompany = char.Parse(System.Console.ReadLine());
                 
                 System.Console.WriteLine($"Tax payer {i} data:");
 
@@ -39,7 +40,7 @@ namespace Taxes
                     double income = double.Parse(System.Console.ReadLine());
 
                     System.Console.Write("Number of employees: ");
-                    double numOfEmployees = double.Parse(System.Console.ReadLine());
+                    int numOfEmployees = int.Parse(System.Console.ReadLine());
 
                     taxPayers.Add(new Company(name, income, numOfEmployees));
                 }
@@ -47,13 +48,15 @@ namespace Taxes
                     System.Console.WriteLine("Nao é uma opcao valida.");
                 }
 
-                double sum;
+                double sum = 0;
 
+                System.Console.WriteLine();
                 System.Console.WriteLine("TAXES PAID:");
                 foreach(Payer payer in taxPayers) {
-                    System.Console.Write($"{payer.Name}: $ {payer.Tax()}");
+                    System.Console.WriteLine($"{payer.Name}: $ {payer.Tax().ToString("F2")}");
                     sum += payer.Tax();
                 }
+                System.Console.WriteLine();
                 System.Console.WriteLine($"TOTAL TAXES: {sum}");
         }
     }

@@ -8,7 +8,6 @@ namespace Taxes.Entities {
             AnnualIncome = annualInc;
         }
 
-        public abstract double Tax() {
-        }
+        public abstract double Tax();
     }
 }
