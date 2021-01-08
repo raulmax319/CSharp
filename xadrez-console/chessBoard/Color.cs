@@ -1,5 +1,6 @@
 namespace chessBoard {
     enum Color {
+        
         Black,
         White,
         Yellow,
