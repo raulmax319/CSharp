@@ -12,7 +12,7 @@ namespace Game {
         }
 
         public override string ToString() {
-            return "B";
+            return "B ";
         }
     }
 }

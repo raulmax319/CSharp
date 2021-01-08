@@ -9,7 +9,7 @@ namespace chessBoard {
             this.column = column;
         }
 
-        public void direction(int line, int column) {
+        public void location(int line, int column) {
             this.line = line;
             this.column = column;
         }

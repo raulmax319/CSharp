@@ -17,42 +17,43 @@ namespace Game {
             Position pos = new Position(0, 0);
 
             //up
-            pos.direction(position.line - 1, position.column);
-            if(board.validPosition(pos) && canMove(pos))
+            pos.location(position.line - 1, position.column);
+            if(board.validPosition(pos) && canMove(pos)) {
                 mat[pos.line, pos.column] = true;
+            }
 
             //up-right
-            pos.direction(position.line - 1, position.column + 1);
+            pos.location(position.line - 1, position.column + 1);
             if(board.validPosition(pos) && canMove(pos))
                 mat[pos.line, pos.column] = true;
 
             //right
-            pos.direction(position.line, position.column + 1);
+            pos.location(position.line, position.column + 1);
             if(board.validPosition(pos) && canMove(pos))
                 mat[pos.line, pos.column] = true;
 
             //down-right
-            pos.direction(position.line + 1, position.column + 1);
+            pos.location(position.line + 1, position.column + 1);
             if(board.validPosition(pos) && canMove(pos))
                 mat[pos.line, pos.column] = true;
 
             //down
-            pos.direction(position.line + 1, position.column);
+            pos.location(position.line + 1, position.column);
             if(board.validPosition(pos) && canMove(pos))
                 mat[pos.line, pos.column] = true;
 
             //down-left
-            pos.direction(position.line + 1, position.column - 1);
+            pos.location(position.line + 1, position.column - 1);
             if(board.validPosition(pos) && canMove(pos))
                 mat[pos.line, pos.column] = true;
 
             //left
-            pos.direction(position.line, position.column - 1);
+            pos.location(position.line, position.column - 1);
             if(board.validPosition(pos) && canMove(pos))
                 mat[pos.line, pos.column] = true;
 
             //up-left
-            pos.direction(position.line - 1, position.column - 1);
+            pos.location(position.line - 1, position.column - 1);
             if(board.validPosition(pos) && canMove(pos))
                 mat[pos.line, pos.column] = true;
 

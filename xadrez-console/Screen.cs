@@ -1,9 +1,41 @@
 using System;
+using System.Collections.Generic;
 using chessBoard;
 using Game;
 
 namespace xadrez_console {
     class Screen {
+
+        public static void printGame(Chess game) {
+            Screen.printBoard(game.board);
+            System.Console.WriteLine();
+            printCapturedPieces(game);
+            System.Console.WriteLine();
+            System.Console.WriteLine($"Turn: {game.turn}");
+            System.Console.WriteLine($"Waiting player: {game.actualPlayer}");
+        }
+
+        public static void printCapturedPieces(Chess game) {
+            System.Console.WriteLine("Captured pieces: ");
+            System.Console.Write("White: ");
+            printSet(game.capturedPieces(Color.White));
+            System.Console.WriteLine();
+            System.Console.Write("Black: ");
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            printSet(game.capturedPieces(Color.Black));
+            Console.ForegroundColor = aux;
+            System.Console.WriteLine();
+        }
+
+        public static void printSet(HashSet<Piece> set) {
+            System.Console.Write("[");
+            foreach(Piece p in set) {
+                System.Console.Write($"{p} ");
+            }
+            System.Console.Write("]");
+        }
+
         public static void printBoard(Board board) {
             for(int i = 0; i < board.lines; i++) {
                 System.Console.Write($"{8 - i} ");
@@ -43,11 +75,9 @@ namespace xadrez_console {
         }
 
         public static void printPiece(Piece piece) {
-            if(piece == null)
-                System.Console.Write("- ");
+            if(piece == null) System.Console.Write("- ");
             else
-                if(piece.color == Color.White)
-                System.Console.Write(piece);
+                if(piece.color == Color.White) System.Console.Write(piece);
                 else {                
                     ConsoleColor aux = Console.ForegroundColor;
                     Console.ForegroundColor = ConsoleColor.Yellow;

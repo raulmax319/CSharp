@@ -22,16 +22,14 @@ namespace chessBoard {
         }
 
         public void insertPiece(Piece p, Position pos) {
-            if(pieceExists(pos))
-                throw new BoardException("There's already a piece in this position.");
+            if(pieceExists(pos)) throw new BoardException("There's already a piece in this position.");
             
             pieces[pos.line, pos.column] = p;
             p.position = pos;
         }
 
         public Piece removePiece(Position pos) {
-            if(piece(pos) == null)
-                return null;
+            if(piece(pos) == null) return null;
 
             Piece aux = piece(pos);
             aux.position = null;
@@ -46,15 +44,13 @@ namespace chessBoard {
         }
 
         public bool validPosition(Position pos) {
-            if(pos.line < 0 || pos.line > lines || pos.column < 0 || pos.column > columns)
-                return false;
+            if(pos.line < 0 || pos.line >= lines || pos.column < 0 || pos.column >= columns) return false;
             
             return true;
         }
 
         public void validatePosition(Position pos) {
-            if(!validPosition(pos))
-                throw new BoardException("Invalid Position!");
+            if(!validPosition(pos)) throw new BoardException("Invalid Position!");
         }
     }
 }

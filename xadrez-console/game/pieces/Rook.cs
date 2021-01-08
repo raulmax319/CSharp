@@ -17,37 +17,37 @@ namespace Game {
             Position pos = new Position(0, 0);
 
             //up
-            pos.direction(pos.line - 1, pos.column);
+            pos.location(position.line - 1, position.column);
             while(board.validPosition(pos) && canMove(pos)) {
                 mat[pos.line, pos.column] = true;
-                if(board.piece(pos) != null && board.piece(pos).color != color) break;
+                if(board.piece(pos) != null && board.piece(pos).color != this.color) break;
                 
                 pos.line = pos.line - 1;
             }
 
             //down
-            pos.direction(pos.line + 1, pos.column);
+            pos.location(position.line + 1, position.column);
             while(board.validPosition(pos) && canMove(pos)) {
                 mat[pos.line, pos.column] = true;
-                if(board.piece(pos) != null && board.piece(pos).color != color) break;
+                if(board.piece(pos) != null && board.piece(pos).color != this.color) break;
                 
                 pos.line = pos.line + 1;
             }
 
             //right
-            pos.direction(pos.line, pos.column + 1);
+            pos.location(position.line, position.column + 1);
             while(board.validPosition(pos) && canMove(pos)) {
                 mat[pos.line, pos.column] = true;
-                if(board.piece(pos) != null && board.piece(pos).color != color) break;
+                if(board.piece(pos) != null && board.piece(pos).color != this.color) break;
                 
                 pos.column = pos.column + 1;
             }
 
             //left
-            pos.direction(pos.line, pos.column - 1);
+            pos.location(position.line, position.column - 1);
             while(board.validPosition(pos) && canMove(pos)) {
                 mat[pos.line, pos.column] = true;
-                if(board.piece(pos) != null && board.piece(pos).color != color) break;
+                if(board.piece(pos) != null && board.piece(pos).color != this.color) break;
                 
                 pos.column = pos.column - 1;
             }

@@ -11,23 +11,31 @@ namespace xadrez_console
                 Chess game = new Chess();
 
                 while(!game.finished) {
-                    Console.Clear();
-                    Screen.printBoard(game.board);
+                    try {
+                        Console.Clear();
+                        Screen.printGame(game);
 
-                    System.Console.WriteLine();
-                    System.Console.Write("Origin: ");
-                    Position origin = Screen.readPiecePos().toPosition();
+                        System.Console.WriteLine();
+                        System.Console.Write("Origin: ");
+                        Position origin = Screen.readPiecePos().toPosition();
+                        game.validateOriginPos(origin);
 
-                    bool[,] possiblePos = game.board.piece(origin).possibleMoves();
+                        bool[,] possiblePos = game.board.piece(origin).possibleMoves();
 
-                    Console.Clear();
-                    Screen.printBoard(game.board, possiblePos);
+                        Console.Clear();
+                        Screen.printBoard(game.board, possiblePos);
 
-                    System.Console.WriteLine();
-                    System.Console.Write("Target: ");
-                    Position target = Screen.readPiecePos().toPosition();
+                        System.Console.WriteLine();
+                        System.Console.Write("Target: ");
+                        Position target = Screen.readPiecePos().toPosition();
+                        game.validateTargetPos(origin, target);
 
-                    game.moveExecution(origin, target);
+                        game.doMove(origin, target);
+                    }
+                    catch(BoardException error) {
+                        System.Console.WriteLine(error.Message);
+                        System.Console.ReadLine();
+                    }
                 }
             }
             catch(BoardException err) {
