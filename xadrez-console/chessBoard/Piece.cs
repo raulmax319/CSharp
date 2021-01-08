@@ -5,14 +5,18 @@ namespace chessBoard {
         
         public Position position { get; set; }
         public Color color { get; protected set; }
-        public int numberOfMovements { get; protected set; }
+        public int numberOfMoves { get; protected set; }
         public Board board { get; protected set; }
 
         public Piece(Board board, Color color) {
             this.position = null;
             this.board = board;
             this.color = color;
-            this.numberOfMovements = 0;
+            this.numberOfMoves = 0;
+        }
+
+        public void incrementNumOfMoves() {
+            numberOfMoves++;
         }
     }
 }

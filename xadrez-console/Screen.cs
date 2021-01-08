@@ -1,5 +1,6 @@
 using System;
 using chessBoard;
+using Game;
 
 namespace xadrez_console {
     class Screen {
@@ -17,6 +18,14 @@ namespace xadrez_console {
                 System.Console.WriteLine();
             }
             System.Console.WriteLine("  A B C D E F G H");
+        }
+
+        public static BoardPosition readPiecePos() {
+            string s = System.Console.ReadLine();
+            char col = s[0];
+            int line = int.Parse($"{s[1]}");
+
+            return new BoardPosition(col, line);
         }
 
         public static void printPiece(Piece piece) {

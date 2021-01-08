@@ -8,15 +8,20 @@ namespace xadrez_console
     {
         static void Main(string[] args) {
             try {
-                Board board = new Board(8, 8);
+                Chess game = new Chess();
 
-                board.insertPiece(new Rook(board, Color.Black), new Position(0, 0));
-                board.insertPiece(new Rook(board, Color.Black), new Position(1, 3));
-                board.insertPiece(new King(board, Color.Black), new Position(3, 4));
+                while(!game.finished) {
+                    Console.Clear();
+                    Screen.printBoard(game.board);
 
-                board.insertPiece(new King(board, Color.White), new Position(3, 6));
+                    System.Console.WriteLine();
+                    System.Console.Write("Origin: ");
+                    Position origin = Screen.readPiecePos().toPosition();
+                    System.Console.Write("Target: ");
+                    Position target = Screen.readPiecePos().toPosition();
 
-                Screen.printBoard(board);
+                    game.moveExecution(origin, target);
+                }
             }
             catch(BoardException err) {
                 System.Console.WriteLine(err.Message);
