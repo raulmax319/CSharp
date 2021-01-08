@@ -1,7 +1,7 @@
 using Game;
 
 namespace chessBoard {
-    class Piece {
+    abstract class Piece {
         
         public Position position { get; set; }
         public Color color { get; protected set; }
@@ -14,6 +14,8 @@ namespace chessBoard {
             this.color = color;
             this.numberOfMoves = 0;
         }
+
+        public abstract bool[,] possibleMoves();
 
         public void incrementNumOfMoves() {
             numberOfMoves++;

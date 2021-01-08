@@ -17,6 +17,13 @@ namespace xadrez_console
                     System.Console.WriteLine();
                     System.Console.Write("Origin: ");
                     Position origin = Screen.readPiecePos().toPosition();
+
+                    bool[,] possiblePos = game.board.piece(origin).possibleMoves();
+
+                    Console.Clear();
+                    Screen.printBoard(game.board, possiblePos);
+
+                    System.Console.WriteLine();
                     System.Console.Write("Target: ");
                     Position target = Screen.readPiecePos().toPosition();
 
