@@ -34,5 +34,9 @@ namespace chessBoard {
         public void incrementNumOfMoves() {
             numberOfMoves++;
         }
+        
+        public void decrementNumOfMoves() {
+            numberOfMoves--;
+        }
     }
 }

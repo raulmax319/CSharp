@@ -11,28 +11,52 @@ namespace Game {
 
         private HashSet<Piece> pieces;
         private HashSet<Piece> captured;
+        public bool check { get; private set; }
 
         public Chess() {
             board = new Board(8, 8);
             turn = 1;
             actualPlayer = Color.White;
             finished = false;
+            check = false;
             pieces = new HashSet<Piece>();
             captured = new HashSet<Piece>();
             spawnPieces();
         }
 
-        public void moveExecution(Position origin, Position target) {
+        public Piece moveExecution(Position origin, Position target) {
             Piece p = board.removePiece(origin);
             p.incrementNumOfMoves();
             Piece capturedPiece = board.removePiece(target);
             board.insertPiece(p, target);
 
             if(capturedPiece != null) captured.Add(capturedPiece);
+
+            return capturedPiece;
+        }
+
+        public void undoMove(Position o, Position t, Piece captPiece) {
+            Piece p = board.removePiece(t);
+            p.decrementNumOfMoves();
+
+            if(captPiece != null) {
+                board.insertPiece(captPiece, t);
+                captured.Remove(captPiece);
+            }
+            board.insertPiece(p, o);
         }
 
         public void doMove(Position origin, Position target) {
-            moveExecution(origin, target);
+            Piece captPiece = moveExecution(origin, target);
+
+            if(isCheck(actualPlayer)) {
+                undoMove(origin, target, captPiece);
+                throw new BoardException("You can't check yourself");
+            }
+            if(isCheck(opponent(actualPlayer))) check = true;
+            else check = false;
+
+            
             turn++;
             switchPlayer();
         }
@@ -69,6 +93,29 @@ namespace Game {
             }
             aux.ExceptWith(capturedPieces(color));
             return aux;
+        }
+
+        private Color opponent(Color c) {
+            if(c == Color.White) return Color.Black;
+            else return Color.White;
+        }
+        private Piece king(Color c) {
+            foreach(Piece p in piecesInGame(c)) {
+                if( p is King) return p;
+            }
+            return null;
+        }
+
+        public bool isCheck(Color c) {
+            Piece K = king(c);
+            if(K == null) throw new BoardException("No King??");
+
+            foreach(Piece p in piecesInGame(opponent(c))) {
+                bool[,] mat = p.possibleMoves();
+
+                if(mat[K.position.line, K.position.column]) return true;
+            }
+            return false;
         }
 
         public void addNewPiece(char col, int line, Piece p) {
