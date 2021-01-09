@@ -34,6 +34,7 @@ namespace xadrez_console
                     }
                     catch(BoardException error) {
                         System.Console.WriteLine(error.Message);
+                        System.Console.WriteLine("Press anything to continue...");
                         System.Console.ReadLine();
                     }
                 }
