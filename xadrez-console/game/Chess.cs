@@ -32,6 +32,22 @@ namespace Game {
 
             if(capturedPiece != null) captured.Add(capturedPiece);
 
+            //Castle mechanic
+            if(p is King && target.column == origin.column + 2) {
+                Position rookOriginPos = new Position(origin.line, origin.column + 3);
+                Position rookTargedPos = new Position(origin.line, origin.column + 1);
+                Piece T = board.removePiece(rookOriginPos);
+                T.incrementNumOfMoves();
+                board.insertPiece(T, rookTargedPos);
+            }
+
+            if(p is King && target.column == origin.column - 2) {
+                Position rookOriginPos = new Position(origin.line, origin.column - 4);
+                Position rookTargedPos = new Position(origin.line, origin.column - 1);
+                Piece T = board.removePiece(rookOriginPos);
+                T.incrementNumOfMoves();
+                board.insertPiece(T, rookTargedPos);
+            }
             return capturedPiece;
         }
 
@@ -42,6 +58,23 @@ namespace Game {
             if(captPiece != null) {
                 board.insertPiece(captPiece, t);
                 captured.Remove(captPiece);
+            }
+
+            //Castle
+            if(p is King && t.column == o.column + 2) {
+                Position rookOriginPos = new Position(o.line, o.column + 3);
+                Position rookTargedPos = new Position(o.line, o.column + 1);
+                Piece T = board.removePiece(rookTargedPos);
+                T.decrementNumOfMoves();
+                board.insertPiece(T, rookOriginPos);
+            }
+
+            if(p is King && t.column == o.column - 2) {
+                Position rookOriginPos = new Position(o.line, o.column - 4);
+                Position rookTargedPos = new Position(o.line, o.column - 1);
+                Piece T = board.removePiece(rookTargedPos);
+                T.decrementNumOfMoves();
+                board.insertPiece(T, rookOriginPos);
             }
             board.insertPiece(p, o);
         }
@@ -164,7 +197,7 @@ namespace Game {
             addNewPiece('b', 1, new Knight(board, Color.White));
             addNewPiece('c', 1, new Bishop(board, Color.White));
             addNewPiece('d', 1, new Queen(board, Color.White));
-            addNewPiece('e', 1, new King(board, Color.White));
+            addNewPiece('e', 1, new King(board, Color.White, this));
             addNewPiece('f', 1, new Bishop(board, Color.White));
             addNewPiece('g', 1, new Knight(board, Color.White));
             addNewPiece('h', 1, new Rook(board, Color.White));
@@ -183,7 +216,7 @@ namespace Game {
             addNewPiece('b', 8, new Knight(board, Color.Black));
             addNewPiece('c', 8, new Bishop(board, Color.Black));
             addNewPiece('d', 8, new Queen(board, Color.Black));
-            addNewPiece('e', 8, new King(board, Color.Black));
+            addNewPiece('e', 8, new King(board, Color.Black, this));
             addNewPiece('f', 8, new Bishop(board, Color.Black));
             addNewPiece('g', 8, new Knight(board, Color.Black));
             addNewPiece('h', 8, new Rook(board, Color.Black));
