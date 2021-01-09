@@ -55,7 +55,7 @@ namespace Game {
         }
 
         public override string ToString() {
-            return "R ";
+            return " R ";
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Game {
         }
 
         public override string ToString() {
-            return "N ";
+            return " N ";
         }
     }
 }

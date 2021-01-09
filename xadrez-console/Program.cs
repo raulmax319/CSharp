@@ -30,13 +30,15 @@ namespace xadrez_console
                         Position target = Screen.readPiecePos().toPosition();
                         game.validateTargetPos(origin, target);
 
-                        game.doMove(origin, target);
+                        game.move(origin, target);
                     }
                     catch(BoardException error) {
                         System.Console.WriteLine(error.Message);
                         System.Console.ReadLine();
                     }
                 }
+                Console.Clear();
+                Screen.printGame(game);
             }
             catch(BoardException err) {
                 System.Console.WriteLine(err.Message);

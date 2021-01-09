@@ -46,19 +46,26 @@ namespace Game {
             board.insertPiece(p, o);
         }
 
-        public void doMove(Position origin, Position target) {
+        public void move(Position origin, Position target) {
             Piece captPiece = moveExecution(origin, target);
 
             if(isCheck(actualPlayer)) {
                 undoMove(origin, target, captPiece);
                 throw new BoardException("You can't check yourself");
             }
-            if(isCheck(opponent(actualPlayer))) check = true;
-            else check = false;
-
-            
-            turn++;
-            switchPlayer();
+            if(isCheck(opponent(actualPlayer))) {
+                check = true;
+                    if(isCheckMate(opponent(actualPlayer))) {
+                        finished = true;
+                    }
+                    else {
+                        turn++;
+                        switchPlayer();
+                    }
+            }
+            else {
+                check = false;
+            }
         }
 
         public void validateOriginPos(Position pos) {
@@ -118,6 +125,28 @@ namespace Game {
             return false;
         }
 
+        public bool isCheckMate(Color c) {
+            if(!isCheck(c)) return false;
+
+            foreach(Piece p in piecesInGame(c)) {
+                bool[,] mat = p.possibleMoves();
+                for(int i = 0; i < board.lines; i++) {
+                    for(int j = 0; j < board.columns; j++) {
+                        if(mat[i, j]) {
+                            Position origin = p.position;
+                            Position target = new Position(i, j);
+                            Piece capturedPiece = moveExecution(origin, target);
+                            bool test = isCheck(c);
+                            undoMove(origin, target, capturedPiece);
+                            
+                            if(!test) return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
         public void addNewPiece(char col, int line, Piece p) {
             board.insertPiece(p, new BoardPosition(col, line).toPosition());
             pieces.Add(p);
@@ -125,24 +154,25 @@ namespace Game {
 
         private void spawnPieces() {
             //white
-            addNewPiece('a', 1, new Rook(board, Color.White));
-            addNewPiece('b', 1, new Knight(board, Color.White));
-            addNewPiece('c', 1, new Bishop(board, Color.White));
-            addNewPiece('d', 1, new Queen(board, Color.White));
-            addNewPiece('e', 1, new King(board, Color.White));
-            addNewPiece('f', 1, new Bishop(board, Color.White));
-            addNewPiece('g', 1, new Knight(board, Color.White));
-            addNewPiece('h', 1, new Rook(board, Color.White));
+            addNewPiece('c', 1, new Rook(board, Color.White));
+            addNewPiece('h', 7, new Rook(board, Color.White));
+            //addNewPiece('b', 1, new Knight(board, Color.White));
+            //addNewPiece('c', 1, new Bishop(board, Color.White));
+            //addNewPiece('d', 1, new Queen(board, Color.White));
+            addNewPiece('d', 1, new King(board, Color.White));
+            //addNewPiece('f', 1, new Bishop(board, Color.White));
+            //addNewPiece('g', 1, new Knight(board, Color.White));
+            //addNewPiece('h', 1, new Rook(board, Color.White));
 
             //black
-            addNewPiece('a', 8, new Rook(board, Color.Black));
-            addNewPiece('b', 8, new Knight(board, Color.Black));
-            addNewPiece('c', 8, new Bishop(board, Color.Black));
-            addNewPiece('d', 8, new Queen(board, Color.Black));
-            addNewPiece('e', 8, new King(board, Color.Black));
-            addNewPiece('f', 8, new Bishop(board, Color.Black));
-            addNewPiece('g', 8, new Knight(board, Color.Black));
-            addNewPiece('h', 8, new Rook(board, Color.Black));
+            //addNewPiece('c', 8, new Rook(board, Color.Black));
+            //addNewPiece('b', 8, new Knight(board, Color.Black));
+            //addNewPiece('c', 8, new Bishop(board, Color.Black));
+            //addNewPiece('d', 8, new Queen(board, Color.Black));
+            addNewPiece('a', 8, new King(board, Color.Black));
+            //addNewPiece('f', 8, new Bishop(board, Color.Black));
+            //addNewPiece('g', 8, new Knight(board, Color.Black));
+            addNewPiece('b', 8, new Rook(board, Color.Black));
         }
     }
 }
