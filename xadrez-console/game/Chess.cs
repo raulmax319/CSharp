@@ -109,6 +109,18 @@ namespace Game {
 
         public void move(Position origin, Position target) {
             Piece captPiece = moveExecution(origin, target);
+            Piece p = board.piece(target);
+
+            //Pawn promotion
+            if(p is Pawn) {
+                if((p.color == Color.White && target.line == 0) || (p.color == Color.Black && target.line == 7)) {
+                    p = board.removePiece(target);
+                    pieces.Remove(p);
+                    Piece queen = new Queen(board, p.color);
+                    board.insertPiece(queen, target);
+                    pieces.Add(queen);
+                }
+            }
 
             if(isCheck(actualPlayer)) {
                 undoMove(origin, target, captPiece);
@@ -127,7 +139,6 @@ namespace Game {
                 turn++;
                 switchPlayer();
             }
-            Piece p = board.piece(target);
 
             //En Passant
             if(p is Pawn && (target.line == origin.line - 2 || target.line == origin.line + 2))
