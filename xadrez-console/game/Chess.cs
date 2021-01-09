@@ -75,7 +75,7 @@ namespace Game {
         }
 
         public void validateTargetPos(Position origin, Position target) {
-            if(!board.piece(origin).canMoveTo(target)) throw new BoardException("Invalid target position.");
+            if(!board.piece(origin).moveTo(target)) throw new BoardException("Invalid target position.");
         }
 
         private void switchPlayer() {

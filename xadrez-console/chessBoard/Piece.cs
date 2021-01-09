@@ -25,7 +25,7 @@ namespace chessBoard {
             return false;
         }
 
-        public bool canMoveTo(Position pos) {
+        public bool moveTo(Position pos) {
             return possibleMoves()[pos.line, pos.column];
         }
 
